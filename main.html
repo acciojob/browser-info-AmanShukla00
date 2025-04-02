@@ -4,12 +4,41 @@
 
 <head>
 	<link rel="stylesheet" href="styles.css">
+	<title>Browser Information</title>
 </head>
 
 <body>
 	<!-- the entire body must be written by student -->
     <script type="text/javascript" src="./script.js">
-</script>
+		<div id="browser-info"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userAgent = navigator.userAgent;
+            let browserName = "Unknown Browser";
+            let browserVersion = "Unknown Version";
+
+            if (userAgent.includes("Chrome")) {
+                browserName = "Google Chrome";
+                browserVersion = userAgent.match(/Chrome\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Firefox")) {
+                browserName = "Mozilla Firefox";
+                browserVersion = userAgent.match(/Firefox\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+                browserName = "Apple Safari";
+                browserVersion = userAgent.match(/Version\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("MSIE") || userAgent.includes("Trident")) {
+                browserName = "Internet Explorer";
+                browserVersion = userAgent.match(/(MSIE |rv:)([0-9.]+)/)[2];
+            } else if (userAgent.includes("Edge")) {
+                browserName = "Microsoft Edge";
+                browserVersion = userAgent.match(/Edg\/([0-9.]+)/)[1];
+            }
+
+            document.getElementById("browser-info").textContent = 
+                `You are using ${browserName} version ${browserVersion}`;
+        });
+    </script>
 
 </body>
 
